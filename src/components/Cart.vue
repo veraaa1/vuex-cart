@@ -8,7 +8,7 @@
         <div>
           <button @click="cutNum(productid)">-</button>
           <span>{{cart.quatityById[productid]}}</span>
-          <button @click="addCart(productid)">+</button>
+          <button @click="addCart(productid)" :disabled="(products.find(e=>e.id == productid).inventory - (cart.quatityById[productid]?cart.quatityById[productid]:0))>0?false:true">+</button>
         </div>
         <button @click="removeCart(productid)">remove cart</button>
       </li>

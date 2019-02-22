@@ -10,6 +10,9 @@ const cart = {
             if (state.cart.productId.indexOf(id) === -1) {
                 state.cart.productId.push(id)
                 state.cart.quatityById[id] = 1
+                state.cart.quatityById = {
+                    ...state.cart.quatityById
+                }
             } else {
                 // 当改变对象下的某个属性时直接进行改变，vue认为没有修改，因为修改的都是同一个对象，因为指向的地址都是相同的，如果想要修改，就要对对象进行重新赋值
                 state.cart.quatityById[id]++

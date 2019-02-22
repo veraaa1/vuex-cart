@@ -6,8 +6,9 @@
         <div>
           <h3>{{product.goodName}}</h3>
           <p>￥{{product.price}}</p>
-          <p>剩余{{product.inventory}}</p>
-          <button @click="addCart(product.id)">add to cart</button>
+          <p>剩余{{product.inventory - (cart.quatityById[product.id]?cart.quatityById[product.id]:0)}}</p>
+          <p>{{(product.inventory - (cart.quatityById[product.id]?cart.quatityById[product.id]:0))>0?'有货':'无货'}}</p>
+          <button @click="addCart(product.id)" :disabled="(product.inventory - (cart.quatityById[product.id]?cart.quatityById[product.id]:0))>0?false:true">add to cart</button>
         </div>
       </li>
     </ul>
@@ -16,12 +17,17 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 export default {
   name: "products",
   computed: {
-    products() {
-      return this.$store.state.products.products;
-    }
+    // products() {
+    //   return this.$store.state.products.products;
+    // },
+    ...mapState({
+      products : state => state.products.products,
+      cart:state=>state.cart.cart
+    })
   },
   methods: {
     addCart(id) {
